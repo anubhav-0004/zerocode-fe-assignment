@@ -6,11 +6,14 @@ This project showcases modern frontend techniques like AI-like chatbot interacti
 🔗 **Live Demo:** [https://zero-code-assignment.vercel.app/](https://zero-code-assignment.vercel.app/)  
 📁 **GitHub Repo:** [https://github.com/anubhav-0004/zerocode-fe-assignment](https://github.com/anubhav-0004/zerocode-fe-assignment)
 
-  **Getting Started:**
-  -git clone https://github.com/anubhav-0004/zerocode-fe-assignment
-  -cd zerocode-fe-assignment
-  -npm install
-  -npm run dev
+---
+
+## 🚀 Getting Started:
+
+  - git clone https://github.com/anubhav-0004/zerocode-fe-assignment  
+  - cd zerocode-fe-assignment  
+  - npm install  
+  - npm run dev  
 
 
 ---
