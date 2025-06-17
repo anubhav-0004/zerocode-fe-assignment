@@ -53,7 +53,7 @@ const Home = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white text-indigo-700 px-6 max-md:px-3 py-2 rounded-lg shadow-lg hover:bg-gray-100 transition"
               >
-                Try Demo
+                Try Demo Chat
               </motion.button>
             </Link>
           </div>

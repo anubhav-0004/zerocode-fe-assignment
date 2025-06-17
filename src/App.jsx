@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import ChatPage from "./pages/Chat";
 import Analitics from "./pages/Analitics";
 import NoPage from "./pages/NoPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -15,8 +16,24 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/admin" element={<Analitics />} />
+        
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <ChatPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Analitics />
+            </ProtectedRoute>
+          }
+        />
+        
         <Route path="*" element={<NoPage />} />
       </Routes>
     </>

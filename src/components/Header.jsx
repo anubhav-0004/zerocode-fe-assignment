@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { MdAdminPanelSettings } from 'react-icons/md';
 
 const Header = () => {
   const [themeMode, setThemeMode] = useState("light");
+  const [isLoggedin, setIsLoggedin] = useState(localStorage.getItem("token"));
+  const location = useLocation();
 
   const lightTheme = () => {
     setThemeMode("light");
@@ -19,6 +21,15 @@ const Header = () => {
     if (themeMode == "light") darkTheme();
     else lightTheme();
   };
+
+  const clickHandler = () => {
+    if(localStorage.getItem("token")) localStorage.removeItem("token");
+  }
+
+  useEffect(() => {
+    setIsLoggedin(localStorage.getItem("token"));
+  }, [location])
+  
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -48,9 +59,12 @@ const Header = () => {
           <motion.button
           whileHover={{ scale: 0.95 }}
           whileTap={{ scale: 0.9 }}
+          onClick={clickHandler}
           className="px-4 max-md:px-2.5 max-md:py-1.5 py-2 border border-indigo-500 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200"
         >
-          Login
+          {
+            isLoggedin ? "LogOut" : "Login"
+          }
         </motion.button>
         </Link>
 

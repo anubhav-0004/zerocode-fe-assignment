@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login data:", formData);
+    setError(true);
+    if (formData.email && formData.password) {
+      console.log("Login data:", formData);
+      navigate("/");
+      localStorage.setItem("token", "User");
+      setError(false);
+    }
   };
 
   return (
@@ -72,7 +80,10 @@ const Login = () => {
 
         <p className="text-sm text-center mt-4 text-gray-500 dark:text-gray-400">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+          <Link
+            to="/register"
+            className="text-indigo-600 dark:text-indigo-400 hover:underline"
+          >
             Register here
           </Link>
         </p>

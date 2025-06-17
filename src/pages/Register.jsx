@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,13 +9,27 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Register data:", formData);
+    setError(true);
+    if (
+      formData.username != "" &&
+      formData.email != "" &&
+      formData.password == formData.confirmPassword
+    ) {
+      setError(false);
+      console.log("Register data:", formData);
+      navigate("/");
+      localStorage.setItem("token", "User");
+    }
   };
 
   return (
@@ -35,10 +49,13 @@ const Register = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
+          <div className="relative">
             <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Username
             </label>
+            <span className="absolute -top-1 left-16 text-red-600 text-lg">
+              *
+            </span>
             <input
               type="text"
               name="username"
@@ -49,10 +66,13 @@ const Register = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Email Address
             </label>
+            <span className="absolute -top-1 left-[5.7rem] text-red-600 text-lg">
+              *
+            </span>
             <input
               type="email"
               name="email"
@@ -63,10 +83,14 @@ const Register = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Password
             </label>
+            <span className="absolute -top-1 left-[3.85rem] text-red-600 text-lg">
+              *
+            </span>
+
             <input
               type="password"
               name="password"
@@ -77,10 +101,13 @@ const Register = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Confirm Password
             </label>
+            <span className="absolute -top-1 left-[7.35rem] text-red-600 text-lg">
+              *
+            </span>
             <input
               type="password"
               name="confirmPassword"
@@ -90,6 +117,11 @@ const Register = () => {
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
             />
           </div>
+          {error && (
+            <div className="text-xs text-red-500 -mt-3 mb-0">
+              Mismatch Password and confirmPassword.
+            </div>
+          )}
 
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -103,7 +135,10 @@ const Register = () => {
 
         <p className="text-sm text-center mt-4 text-gray-500 dark:text-gray-400">
           Already have an account?{" "}
-          <Link to="/login" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+          <Link
+            to="/login"
+            className="text-indigo-600 dark:text-indigo-400 hover:underline"
+          >
             Login here
           </Link>
         </p>
